@@ -17,7 +17,6 @@ public class Exercise1 {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         driver = new ChromeDriver(options);
-        System.out.println("Opening Website");
     }
 
     @Test(priority = 1)
@@ -37,7 +36,8 @@ public class Exercise1 {
 
     @AfterTest
     public void teardown() {
-        System.out.println("Logging Out");
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }

@@ -9,6 +9,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import java.time.Duration;
 
 public class Exercise2 {
     WebDriver driver;
@@ -20,8 +21,8 @@ public class Exercise2 {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://demo.guru99.com/test/login.html");
-        driver.manage().window().maximize();
     }
 
     @DataProvider(name = "LoginData")
@@ -33,7 +34,7 @@ public class Exercise2 {
     }
 
     @Test(dataProvider = "LoginData")
-    public void loginTest(String user, String pwd, String type) throws InterruptedException {
+    public void loginTest(String user, String pwd, String type) {
         driver.findElement(By.id("email")).sendKeys(user);
         driver.findElement(By.name("passwd")).sendKeys(pwd);
         driver.findElement(By.id("SubmitLogin")).click();
@@ -41,13 +42,15 @@ public class Exercise2 {
         if (type.equals("valid")) {
             Assert.assertTrue(driver.getCurrentUrl().contains("success.html"));
         } else {
-            Assert.assertTrue(driver.findElement(By.tagName("body")).getText().contains("Email and/or Password"));
+            String bodyText = driver.findElement(By.tagName("body")).getText();
+            Assert.assertTrue(bodyText.contains("Email and/or Password"));
         }
-        Thread.sleep(3000);
     }
 
     @AfterMethod
     public void teardown() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }

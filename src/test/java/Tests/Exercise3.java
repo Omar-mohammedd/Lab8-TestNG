@@ -52,6 +52,8 @@ public class Exercise3 {
 
     @AfterMethod(alwaysRun = true)
     public void teardown() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
