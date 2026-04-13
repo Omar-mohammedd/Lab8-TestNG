@@ -1,12 +1,22 @@
 package Tests;
-//Omar Mohammed
-//2022170911
-import org.testng.annotations.*;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 public class Exercise1 {
+    WebDriver driver;
 
     @BeforeTest
-    public void openWebSite() {
+    public void setup() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        driver = new ChromeDriver(options);
         System.out.println("Opening Website");
     }
 
@@ -16,7 +26,7 @@ public class Exercise1 {
     }
 
     @Test(priority = 2)
-    public void logIn() {
+    public void login() {
         System.out.println("Logging In");
     }
 
@@ -26,7 +36,8 @@ public class Exercise1 {
     }
 
     @AfterTest
-    public void logOut() {
+    public void teardown() {
         System.out.println("Logging Out");
+        driver.quit();
     }
 }

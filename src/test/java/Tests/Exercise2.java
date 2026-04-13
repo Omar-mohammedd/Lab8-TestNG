@@ -3,6 +3,7 @@ package Tests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -14,7 +15,11 @@ public class Exercise2 {
 
     @BeforeMethod
     public void setup() {
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        driver = new ChromeDriver(options);
         driver.get("https://demo.guru99.com/test/login.html");
         driver.manage().window().maximize();
     }
@@ -22,8 +27,8 @@ public class Exercise2 {
     @DataProvider(name = "LoginData")
     public Object[][] getLoginData() {
         return new Object[][] {
-                { "fail@mail.com", "123", "valid" },
-                { "test@mail.com", "152", "valid" } //both shows valid but diff data
+                { "test@mail.com", "123", "invalid" },
+                { "test@mail.com", "152", "valid" }
         };
     }
 
@@ -38,7 +43,6 @@ public class Exercise2 {
         } else {
             Assert.assertTrue(driver.findElement(By.tagName("body")).getText().contains("Email and/or Password"));
         }
-
         Thread.sleep(3000);
     }
 
