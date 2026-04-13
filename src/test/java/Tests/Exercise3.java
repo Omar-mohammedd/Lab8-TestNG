@@ -24,9 +24,7 @@ public class Exercise3 {
     @BeforeMethod(alwaysRun = true)
     public void setup() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--headless", "--no-sandbox", "--disable-dev-shm-usage");
         driver = new ChromeDriver(options);
     }
 
@@ -52,8 +50,6 @@ public class Exercise3 {
 
     @AfterMethod(alwaysRun = true)
     public void teardown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        if (driver != null) driver.quit();
     }
 }

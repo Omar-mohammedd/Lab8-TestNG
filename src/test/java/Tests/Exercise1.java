@@ -13,31 +13,27 @@ public class Exercise1 {
     @BeforeTest
     public void setup() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--headless", "--no-sandbox", "--disable-dev-shm-usage");
         driver = new ChromeDriver(options);
     }
 
     @Test(priority = 1)
     public void signUp() {
-        System.out.println("Signing Up");
+        System.out.println("Step 1: Signing Up");
     }
 
     @Test(priority = 2)
     public void login() {
-        System.out.println("Logging In");
+        System.out.println("Step 2: Logging In");
     }
 
     @Test(priority = 3)
     public void addToCart() {
-        System.out.println("Adding to Cart");
+        System.out.println("Step 3: Adding to Cart");
     }
 
     @AfterTest
     public void teardown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        if (driver != null) driver.quit();
     }
 }
