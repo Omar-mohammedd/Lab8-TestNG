@@ -1,5 +1,6 @@
 package Tests;
-
+//Omar Mohammed
+//2022170911
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,7 +18,11 @@ public class Exercise2 {
     @BeforeMethod
     public void setup() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless", "--no-sandbox", "--disable-dev-shm-usage");
+        if (System.getenv("GITHUB_ACTIONS") != null) {
+            options.addArguments("--headless");
+        }
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://demo.guru99.com/test/login.html");
@@ -36,13 +41,13 @@ public class Exercise2 {
         driver.findElement(By.id("email")).sendKeys(user);
         driver.findElement(By.name("passwd")).sendKeys(pwd);
         driver.findElement(By.id("SubmitLogin")).click();
-
-        // Asserting that the page content exists to confirm the test ran
         Assert.assertNotNull(driver.getTitle());
     }
 
     @AfterMethod
     public void teardown() {
-        if (driver != null) driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
