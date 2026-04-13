@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Lab 8 Suite">
+
+    <test name="Exercise 1 and 2">
+        <classes>
+            <class name="Tests.Exercise1"/>
+            <class name="Tests.Exercise2"/>
+        </classes>
+    </test>
+
+    <test name="Exercise 3 Smoke">
+        <groups>
+            <run>
+                <include name="Smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="Tests.Exercise3"/>
+        </classes>
+    </test>
+
+    <test name="Exercise 3 Regression">
+        <groups>
+            <run>
+                <include name="Regression"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="Tests.Exercise3"/>
+        </classes>
+    </test>
+
+</suite>
